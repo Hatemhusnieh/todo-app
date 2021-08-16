@@ -19,8 +19,8 @@ This application was made to solve busy people time management complexities (obv
 
 ## Deploy, Run and Test - Version 1.0.0
 
-- [Pull Request]()
-- [Production]()
+- [Pull Request](https://github.com/Hatemhusnieh/todo-app/pull/2)
+- [Production](https://to-do-hatem.netlify.app/)
 
 ### Setup
 
