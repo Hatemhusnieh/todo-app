@@ -20,11 +20,11 @@ const ToDo = () => {
   }, [listObject.list]);
 
   return (
-    <>
+    <div style={{ width: '%100' }}>
       <Header incomplete={incomplete} />
       <Form />
       <List />
-    </>
+    </div>
   );
 };
 

@@ -5,7 +5,7 @@ function Form() {
   const { handleSubmit, handleChange } = useContext(ListContext);
 
   return (
-    <div>
+    <div className="formContainer">
       <form onSubmit={handleSubmit}>
         <h2>Add To Do Item</h2>
 

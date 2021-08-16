@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { ListContext } from '../context/list';
-
+import './main.scss';
 function List() {
   const { list, toggleComplete } = useContext(ListContext);
   const [start, setStart] = useState(0);
@@ -21,25 +21,29 @@ function List() {
   useEffect(() => {
     setFilter(list);
   }, [list]);
-  return (
-    <>
-      <button onClick={onlyIncomplete}>only incomplete {filter == list ? 'off' : 'on'}</button>
-      {filter.slice(start, pages).map((item) => (
-        <div key={item.id}>
-          <p>{item.text}</p>
-          <p>
-            <small>Assigned to: {item.assignee}</small>
-          </p>
-          <p>
-            <small>Difficulty: {item.difficulty}</small>
-          </p>
-          <div onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
-          <hr />
+
+  const listOfTodos = filter.slice(start, pages).map((item) => {
+    const deff = item.difficulty > 3 ? 'hard' : 'easy';
+    return (
+      <li key={item.id} ng-repeat="notebook in notebooks">
+        <p>todo: {item.text}</p>
+        <p>Assigned to: {item.assignee}</p>
+        <p>difficulty : {deff}</p>
+
+        <div class="right top" onClick={() => toggleComplete(item.id)}>
+          {item.complete.toString()}
         </div>
-      ))}
+      </li>
+    );
+  });
+
+  return (
+    <div className="listContainer">
+      <button onClick={onlyIncomplete}>only incomplete {filter == list ? 'off' : 'on'}</button>
+      <ul>{listOfTodos}</ul>
       <button onClick={() => next(-3)}>back</button>
       <button onClick={() => next(3)}>next</button>
-    </>
+    </div>
   );
 }
 
