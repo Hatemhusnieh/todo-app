@@ -1,55 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import useForm from '../hooks/form';
+import React, { useEffect, useState, useContext } from 'react';
 import Header from './Header';
 import Form from './Form';
 import List from './List';
-
-import { v4 as uuid } from 'uuid';
+import { ListContext } from '../context/list';
 
 const ToDo = () => {
-  // const { handleChange, handleSubmit } = useForm(addItem);
-  const [list, setList] = useState([]);
+  const listObject = useContext(ListContext);
   const [incomplete, setIncomplete] = useState([]);
-  const [values, setValues] = useState({});
 
   function deleteItem(id) {
     const items = list.filter((item) => item.id !== id);
     setList(items);
   }
 
-  function toggleComplete(id) {
-    const items = list.map((item) => {
-      if (item.id == id) {
-        item.complete = !item.complete;
-      }
-      return item;
-    });
-
-    setList(items);
-  }
-
-  function handleSubmit(event) {
-    if (event) event.preventDefault();
-    values.id = uuid();
-    values.complete = false;
-    setList([...list, values]);
-  }
-
-  function handleChange(event) {
-    setValues((values) => ({ ...values, [event.target.name]: event.target.value }));
-  }
-
   useEffect(() => {
-    let incompleteCount = list.filter((item) => !item.complete).length;
+    let incompleteCount = listObject.list.filter((item) => !item.complete).length;
     setIncomplete(incompleteCount);
     document.title = `To Do List: ${incomplete}`;
-  }, [list]);
+  }, [listObject.list]);
 
   return (
     <>
       <Header incomplete={incomplete} />
-      <Form handleChange={handleChange} handleSubmit={handleSubmit} />
-      <List list={list} toggleComplete={toggleComplete} />
+      <Form />
+      <List />
     </>
   );
 };
