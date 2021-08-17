@@ -3,6 +3,7 @@ import Header from './Header';
 import Form from './Form';
 import List from './List';
 import { ListContext } from '../context/list';
+import './to-do.scss';
 
 const ToDo = () => {
   const listObject = useContext(ListContext);
@@ -20,11 +21,13 @@ const ToDo = () => {
   }, [listObject.list]);
 
   return (
-    <div style={{ width: '%100' }}>
+    <>
       <Header incomplete={incomplete} />
-      <Form />
-      <List />
-    </div>
+      <div className="form-list">
+        <Form />
+        <List />
+      </div>
+    </>
   );
 };
 

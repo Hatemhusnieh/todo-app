@@ -8,12 +8,9 @@ function list(props) {
 
   function handleSubmit(event) {
     if (event) event.preventDefault();
-    // if (list.find(values))
     values.id = uuid();
     values.complete = false;
     setList([...list, values]);
-    // const clear = (values.id = '');
-    // setValues({ ...values, clear });
   }
 
   function handleChange(event) {
