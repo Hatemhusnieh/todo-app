@@ -15,9 +15,9 @@ This application was made to solve busy people time management complexities (obv
 
 ---
 
-## Phase 1
+## Phase 1 Version 1.0.0
 
-## Deploy, Run and Test - Version 1.0.0
+## Deploy, Run and Test
 
 - [Pull Request](https://github.com/Hatemhusnieh/todo-app/pull/2)
 - [Production](https://to-do-hatem.netlify.app/)
@@ -31,3 +31,24 @@ This application was made to solve busy people time management complexities (obv
 ### UML:
 
 ![uml](./res/Context-API.jpg)
+
+---
+
+## Phase 2 Version 1.2.0
+
+## Deploy, Run and Test
+
+- [Pull Request]()
+- [Production](https://to-do-hatem.netlify.app/)
+
+### Setup
+
+#### Running the app
+
+- `npm start`
+
+### UML:
+
+![uml](./res/Context-API.jpg)
+
+---
