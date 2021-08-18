@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { ListContext } from '../context/list';
-import { FormGroup, InputGroup, Switch, Intent, H1, Slider } from '@blueprintjs/core';
+import { ListContext } from '../../../context/list';
+import { FormGroup, InputGroup, Intent, H1 } from '@blueprintjs/core';
 import './form.scss';
 
 function Form() {
@@ -12,13 +12,26 @@ function Form() {
       <form onSubmit={handleSubmit}>
         <FormGroup>
           <FormGroup label="To-Do Details" labelInfo="(required)">
-            <InputGroup onChange={handleChange} name="text" placeholder="what do you want to do ?" intent={Intent.PRIMARY} />
+            <InputGroup
+              onChange={handleChange}
+              name="text"
+              placeholder="what do you want to do ?"
+              intent={Intent.PRIMARY}
+            />
           </FormGroup>
           <FormGroup label="Assignee Name" labelFor="text-input" labelInfo="(required)">
             <InputGroup onChange={handleChange} name="assignee" placeholder="flan w 3lan" intent={Intent.PRIMARY} />
           </FormGroup>
           <FormGroup label="Difficulty" labelFor="range">
-            <input onChange={handleChange} defaultValue={3} type="range" min={1} max={5} name="difficulty" />
+            <input
+              className="deff"
+              onChange={handleChange}
+              defaultValue={3}
+              type="range"
+              min={1}
+              max={5}
+              name="difficulty"
+            />
           </FormGroup>
           <FormGroup>
             <InputGroup type="submit" intent={Intent.DANGER} />

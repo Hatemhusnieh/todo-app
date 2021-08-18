@@ -1,15 +1,42 @@
 import React, { useContext, useState, useEffect } from 'react';
 import './list.scss';
-import { ListContext } from '../context/list';
+import { ListContext } from '../../../context/list';
 import { Button, Card, Elevation, Switch } from '@blueprintjs/core';
 import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 function List() {
-  const { list, toggleComplete } = useContext(ListContext);
+  const { list, toggleComplete, number, showIncomplete, handleNumber, handleIncomplete } = useContext(ListContext);
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(3);
   const [filter, setFilter] = useState([]);
-  const [number, setNumber] = useState(3);
+  const [page, setPage] = useState(null);
+
+  useEffect(() => {
+    setStart(0);
+    setEnd(number);
+    const pages = [];
+    for (let i = 1; i <= Math.ceil(filter.length / number); i++) {
+      pages[i] = i;
+    }
+    setPage(pages);
+  }, [number]);
+
+  useEffect(() => {
+    setFilter(list);
+  }, [list]);
+
+  useEffect(() => {
+    const pages = [];
+    for (let i = 1; i <= Math.ceil(filter.length / number); i++) {
+      pages[i] = i;
+    }
+    setPage(pages);
+  }, [filter]);
+
+  useEffect(() => {
+    if (showIncomplete) setFilter(() => filter.filter((item) => item.complete != true));
+    else setFilter(list);
+  }, [showIncomplete]);
 
   function next(num, length) {
     if (start + Math.abs(num) > length) return;
@@ -23,37 +50,19 @@ function List() {
     setEnd(end + num);
   }
 
-  function onlyIncomplete() {
-    if (filter == list) setFilter(() => filter.filter((item) => item.complete != true));
-    else setFilter(list);
-  }
-
-  function choose(e) {
-    setNumber(Number(e.target.value));
-    setEnd(Number(e.target.value));
-    setStart(0);
-  }
-
-  function pagination(e) {
-    setStart(Number(e.target.id) * number - number);
-    setEnd(Number(e.target.id) * number);
-  }
-
-  useEffect(() => {
-    setFilter(list);
-  }, [list]);
-
-  const pages = [];
-  for (let i = 1; i <= Math.ceil(filter.length / number); i++) {
-    pages[i] = i;
+  function pagination(pages) {
+    setStart((Number(pages) - 1) * number);
+    setEnd(Number(pages) * number);
   }
 
   return (
     <div className="list-container">
-      <Switch onClick={onlyIncomplete}>Only In-Complete</Switch>
+      <Switch checked={showIncomplete} onClick={handleIncomplete}>
+        Only In-Complete
+      </Switch>
       <div className="page-select">
         <Form.Label>Number of Item Displayed</Form.Label>
-        <Form.Select onClick={choose} size="sm">
+        <Form.Select onClick={handleNumber} size="sm">
           <option disabled>Select One</option>
           <option value="3">3</option>
           <option value="6">6</option>
@@ -63,7 +72,7 @@ function List() {
 
       <ul>
         {filter.slice(start, end).map((item) => {
-          const deff = item.difficulty > 3 ? 'hard' : 'easy';
+          const deff = item.difficulty > 3 ? 'hard' : item.difficulty == 3 ? 'medium' : 'easy';
           return (
             <Card key={item.id} interactive={true} elevation={Elevation.ZERO} className="card">
               <h5>
@@ -82,7 +91,11 @@ function List() {
               </h5>
               <p>{item.text}</p>
               <Button
-                className={item.complete ? 'bp3-small bp3-outlined bp3-intent-success' : 'bp3-small bp3-outlined bp3-intent-danger'}
+                className={
+                  item.complete
+                    ? 'bp3-small bp3-outlined bp3-intent-success'
+                    : 'bp3-small bp3-outlined bp3-intent-danger'
+                }
                 onClick={() => toggleComplete(item.id)}
               >
                 {item.complete ? 'Complete' : 'Incomplete'}
@@ -92,15 +105,19 @@ function List() {
         })}
       </ul>
       <div className="navigation">
-        <Button icon="arrow-left" intent="success" outlined onClick={() => back(number * -1)} />
-        <div className="nav-page">
-          {pages.map((page) => (
-            <Button key={`page-${page}`} id={page} intent="Primary" outlined onClick={pagination}>
-              {page}
-            </Button>
-          ))}
-        </div>
-        <Button icon="arrow-right" intent="success" outlined onClick={() => next(number, filter.length)} />
+        {start > 0 && <Button icon="arrow-left" intent="success" outlined onClick={() => back(number * -1)} />}
+        {page && (
+          <div className="nav-page">
+            {page.map((pages) => (
+              <Button key={`page-${pages}`} id={pages} intent="Primary" outlined onClick={() => pagination(pages)}>
+                {pages}
+              </Button>
+            ))}
+          </div>
+        )}
+        {end < filter.length && (
+          <Button icon="arrow-right" intent="success" outlined onClick={() => next(number, filter.length)} />
+        )}
       </div>
     </div>
   );

@@ -3,9 +3,15 @@
 @import '~@blueprintjs/icons/lib/css/blueprint-icons.css';
 
 .form1 {
-  width: 25%;
+  width: 40%;
+  height: fit-content;
   margin: 2rem 1rem;
   padding: 0.5rem;
   box-shadow: 4px 2px 20px 0px;
   border-radius: 4%;
+
+  .deff {
+    margin: 0 0.5rem 0 1rem;
+    width: 80%;
+  }
 }
