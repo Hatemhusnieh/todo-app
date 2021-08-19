@@ -52,3 +52,26 @@ This application was made to solve busy people time management complexities (obv
 ![uml](./res/Context-API.jpg)
 
 ---
+
+## Phase 3 Version 2.0.0
+
+## About Version
+
+App now can prohibit unauthorized users from certain actions
+
+## Deploy, Run and Test
+
+- [Pull Request]()
+- [Production](https://to-do-hatem.netlify.app/)
+
+### Setup
+
+#### Running the app
+
+- `npm start`
+
+### UML:
+
+![uml](./res/LoginandAuth.jpg)
+
+---

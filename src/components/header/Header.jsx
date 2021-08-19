@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
 import { Navbar, Button, Alignment } from '@blueprintjs/core';
 import { ListContext } from '../../context/list';
+import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/auth';
 import './header.scss';
 
 function Header() {
+  const { loggedIn, logout } = useContext(AuthContext);
   const listContext = useContext(ListContext);
   const { incomplete } = listContext;
 
@@ -15,12 +18,19 @@ function Header() {
         </Navbar.Group>
         <Navbar.Group align={Alignment.RIGHT}>
           <Navbar.Divider />
-          <a href="/">
+          <Link to="/">
             <Button className="bp3-minimal" icon="home" text="Home" />
-          </a>
-          <a href="/setting">
-            <Button className="bp3-minimal" icon="build" text="Setting" />
-          </a>
+          </Link>
+          {loggedIn && (
+            <>
+              <Link to="setting">
+                <Button className="bp3-minimal" icon="build" text="Setting" />
+              </Link>
+              <Link to="/">
+                <Button className="bp3-minimal" icon="log-out" onClick={() => logout()} text="log out" />
+              </Link>
+            </>
+          )}
         </Navbar.Group>
       </Navbar>
     </>

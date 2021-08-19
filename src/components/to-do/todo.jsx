@@ -3,28 +3,27 @@ import Header from '../header/Header';
 import Form from './form/Form';
 import List from './list/List';
 import { ListContext } from '../../context/list';
+import { AuthContext } from '../../context/auth';
+import Auth from '../Auth';
 import './to-do.scss';
 
 const ToDo = () => {
-  const listObject = useContext(ListContext);
-  const { list, incomplete } = listObject;
-
-  function deleteItem(id) {
-    const items = list.filter((item) => item.id !== id);
-    setList(items);
-  }
+  const { list, incomplete } = useContext(ListContext);
+  const { loggedIn } = useContext(AuthContext);
 
   useEffect(() => {
     document.title = `To Do List: ${incomplete}`;
   }, [list]);
 
   return (
-    <>
-      <div className="form-list">
+    <div className="form-list">
+      <Auth capability="create">
         <Form />
+      </Auth>
+      <Auth capability="read">
         <List />
-      </div>
-    </>
+      </Auth>
+    </div>
   );
 };
 

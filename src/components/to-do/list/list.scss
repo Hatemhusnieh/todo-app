@@ -28,4 +28,15 @@
       margin: 0.45rem;
     }
   }
+
+  h5 {
+    width: fit-content;
+  }
+  .delete-btn {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

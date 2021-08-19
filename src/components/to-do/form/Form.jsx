@@ -11,7 +11,7 @@ function Form() {
       <H1>Add To Do Item</H1>
       <form onSubmit={handleSubmit}>
         <FormGroup>
-          <FormGroup label="To-Do Details" labelInfo="(required)">
+          <FormGroup label="To-Do Details" labelInfo="(required)" required="true">
             <InputGroup
               onChange={handleChange}
               name="text"
@@ -19,7 +19,7 @@ function Form() {
               intent={Intent.PRIMARY}
             />
           </FormGroup>
-          <FormGroup label="Assignee Name" labelFor="text-input" labelInfo="(required)">
+          <FormGroup label="Assignee Name" labelFor="text-input" labelInfo="(required)" required="true">
             <InputGroup onChange={handleChange} name="assignee" placeholder="flan w 3lan" intent={Intent.PRIMARY} />
           </FormGroup>
           <FormGroup label="Difficulty" labelFor="range">
