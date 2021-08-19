@@ -61,7 +61,7 @@ App now can prohibit unauthorized users from certain actions
 
 ## Deploy, Run and Test
 
-- [Pull Request]()
+- [Pull Request](https://github.com/Hatemhusnieh/todo-app/pull/6)
 - [Production](https://to-do-hatem.netlify.app/)
 
 ### Setup
