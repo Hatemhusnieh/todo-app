@@ -8,6 +8,7 @@ function list(props) {
   const [incomplete, setIncomplete] = useState([]);
   const [number, setNumber] = useState(3);
   const [showIncomplete, setShowIncomplete] = useState(false);
+  const [LS, setLS] = useState(0);
 
   function handleSubmit(event) {
     if (event) event.preventDefault();
@@ -41,13 +42,18 @@ function list(props) {
     setShowIncomplete(!showIncomplete);
   }
 
-  // import states related to setting to save them in local storage
   function save(e) {
     e.preventDefault();
     const obj = { number: e.target.pageNumber.value, showIncomplete: e.target.incomplete.value };
     localStorage.setItem('settings', JSON.stringify(obj));
+    setLS(LS + 1);
   }
-  // use useEffect when mounting to check local storage settings and update the states
+
+  function deleteItem(id) {
+    const items = list.filter((item) => item.id !== id);
+    setList(items);
+  }
+
   useEffect(() => {
     let local = localStorage.getItem('settings');
     if (local) {
@@ -56,7 +62,7 @@ function list(props) {
       if (settings.showIncomplete == 'true') setShowIncomplete(true);
       if (settings.showIncomplete == 'false') setShowIncomplete(false);
     }
-  }, []);
+  }, [LS]);
 
   return (
     <ListContext.Provider
@@ -71,6 +77,7 @@ function list(props) {
         showIncomplete,
         handleIncomplete,
         save,
+        deleteItem,
       }}
     >
       {props.children}

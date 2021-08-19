@@ -3,9 +3,12 @@ import './list.scss';
 import { ListContext } from '../../../context/list';
 import { Button, Card, Elevation, Switch } from '@blueprintjs/core';
 import Form from 'react-bootstrap/Form';
+import Auth from '../../Auth';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 function List() {
-  const { list, toggleComplete, number, showIncomplete, handleNumber, handleIncomplete } = useContext(ListContext);
+  const { list, toggleComplete, number, showIncomplete, handleNumber, handleIncomplete, deleteItem } =
+    useContext(ListContext);
   const [start, setStart] = useState(0);
   const [end, setEnd] = useState(3);
   const [filter, setFilter] = useState([]);
@@ -57,13 +60,15 @@ function List() {
 
   return (
     <div className="list-container">
-      <Switch checked={showIncomplete} onClick={handleIncomplete}>
+      <Switch defaultChecked={showIncomplete} onClick={handleIncomplete}>
         Only In-Complete
       </Switch>
       <div className="page-select">
         <Form.Label>Number of Item Displayed</Form.Label>
         <Form.Select onClick={handleNumber} size="sm">
-          <option disabled>Select One</option>
+          <option disabled value="">
+            Select One
+          </option>
           <option value="3">3</option>
           <option value="6">6</option>
           <option value="9">9</option>
@@ -75,31 +80,39 @@ function List() {
           const deff = item.difficulty > 3 ? 'hard' : item.difficulty == 3 ? 'medium' : 'easy';
           return (
             <Card key={item.id} interactive={true} elevation={Elevation.ZERO} className="card">
-              <h5>
-                <span
-                  className={
-                    item.difficulty > 3
-                      ? 'bp3-tag bp3-round bp3-intent-danger'
-                      : item.difficulty == 3
-                      ? 'bp3-tag bp3-round bp3-intent-warning'
-                      : 'bp3-tag bp3-round bp3-intent-success'
-                  }
-                >
-                  {deff}
-                </span>
-                <span> {item.assignee} </span>
-              </h5>
+              <div className="delete-btn">
+                <h5>
+                  <span
+                    className={
+                      item.difficulty > 3
+                        ? 'bp3-tag bp3-round bp3-intent-danger'
+                        : item.difficulty == 3
+                        ? 'bp3-tag bp3-round bp3-intent-warning'
+                        : 'bp3-tag bp3-round bp3-intent-success'
+                    }
+                  >
+                    {deff}
+                  </span>
+                  <span> {item.assignee} </span>
+                </h5>
+                <Auth capability="delete">
+                  <Button className="bp3-small bp3-intent-danger" icon="trash" onClick={() => deleteItem(item.id)} />
+                </Auth>
+              </div>
+
               <p>{item.text}</p>
-              <Button
-                className={
-                  item.complete
-                    ? 'bp3-small bp3-outlined bp3-intent-success'
-                    : 'bp3-small bp3-outlined bp3-intent-danger'
-                }
-                onClick={() => toggleComplete(item.id)}
-              >
-                {item.complete ? 'Complete' : 'Incomplete'}
-              </Button>
+              <Auth capability="update">
+                <Button
+                  className={
+                    item.complete
+                      ? 'bp3-small bp3-outlined bp3-intent-success'
+                      : 'bp3-small bp3-outlined bp3-intent-danger'
+                  }
+                  onClick={() => toggleComplete(item.id)}
+                >
+                  {item.complete ? 'Complete' : 'Incomplete'}
+                </Button>
+              </Auth>
             </Card>
           );
         })}
