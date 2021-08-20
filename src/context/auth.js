@@ -53,6 +53,8 @@ export default function Auth(props) {
   };
 
   const logout = () => {
+    cookie.remove('auth');
+    cookie.remove('acl');
     setCapabilities(null);
     setLoginState(false, null, {});
   };
