@@ -79,7 +79,7 @@ function List() {
         {filter.slice(start, end).map((item) => {
           const deff = item.difficulty > 3 ? 'hard' : item.difficulty == 3 ? 'medium' : 'easy';
           return (
-            <Card key={item.id} interactive={true} elevation={Elevation.ZERO} className="card">
+            <Card key={item._id} interactive={true} elevation={Elevation.ZERO} className="card">
               <div className="delete-btn">
                 <h5>
                   <span
@@ -96,7 +96,7 @@ function List() {
                   <span> {item.assignee} </span>
                 </h5>
                 <Auth capability="delete">
-                  <Button className="bp3-small bp3-intent-danger" icon="trash" onClick={() => deleteItem(item.id)} />
+                  <Button className="bp3-small bp3-intent-danger" icon="trash" onClick={() => deleteItem(item._id)} />
                 </Auth>
               </div>
 
@@ -108,7 +108,7 @@ function List() {
                       ? 'bp3-small bp3-outlined bp3-intent-success'
                       : 'bp3-small bp3-outlined bp3-intent-danger'
                   }
-                  onClick={() => toggleComplete(item.id)}
+                  onClick={() => toggleComplete(item._id)}
                 >
                   {item.complete ? 'Complete' : 'Incomplete'}
                 </Button>
@@ -122,7 +122,7 @@ function List() {
         {page && (
           <div className="nav-page">
             {page.map((pages) => (
-              <Button key={`page-${pages}`} id={pages} intent="Primary" outlined onClick={() => pagination(pages)}>
+              <Button key={`page-${pages}`} intent="Primary" outlined onClick={() => pagination(pages)}>
                 {pages}
               </Button>
             ))}
