@@ -75,3 +75,24 @@ App now can prohibit unauthorized users from certain actions
 ![uml](./res/LoginandAuth.jpg)
 
 ---
+
+## Phase 4 Version 3.0.0
+
+## About Version
+
+App now can prohibit unauthorized users from certain actions and store to-do's items in database
+
+## Deploy, Run and Test
+
+- [Pull Request](https://github.com/Hatemhusnieh/todo-app/pull/7)
+- [Production](https://to-do-hatem.netlify.app/)
+
+### Setup
+
+#### Running the app
+
+- `npm start`
+
+### UML:
+
+![uml](./res/API-Integration.jpg)
