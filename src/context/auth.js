@@ -61,7 +61,7 @@ export default function Auth(props) {
 
   const signUp = async (username, password, role) => {
     const response = await axios.post(`${API}/signup`, { username: username, password: password, role: role });
-    validateToken(response.data.token);
+    login(username, password);
   };
 
   return (

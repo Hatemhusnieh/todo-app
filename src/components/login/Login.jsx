@@ -11,9 +11,9 @@ function LogIn() {
   function handleSubmit(e) {
     e.preventDefault();
     if (!values.role) {
-      const res = login(values.username, values.password);
+      login(values.username, values.password);
     } else {
-      const res = signUp(values.username, values.password, values.role);
+      signUp(values.username, values.password, values.role);
     }
   }
 
